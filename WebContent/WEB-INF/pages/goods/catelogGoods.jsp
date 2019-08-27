@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>猿来入此校园二手市场</title>
+    <title>福建农林大学校园二手市场</title>
     <link rel="icon" href="<%=basePath%>img/logo.jpg" type="image/x-icon"/>
     <link rel="stylesheet" href="<%=basePath%>css/index.css" />
     <script type="text/javascript" src="<%=basePath%>js/jquery.js" ></script>
@@ -47,7 +47,7 @@
     </script>
 <body ng-view="ng-view">
 <!--
-   猿来入此
+   福建农林大学
     时间：2018-2-24 13:28:16
     描述：顶部
 -->
@@ -55,7 +55,7 @@
     <nav class="white nav1">
         <div class="nav-wrapper">
             <a href="<%=basePath%>goods/homeGoods" class="logo">
-                <em class="em1">猿来入此</em>
+                <em class="em1">福建农林大学</em>
                 <em class="em2">校园二手市场</em>
                 <em class="em3"></em>
             </a>
@@ -274,7 +274,7 @@
     <div class="info">
         <a href="" target="_blank">关于我们</a><em>-</em>
         <a href="">联系我们</a>
-        <p>©2018 猿来入此校园二手市场</p>
+        <p>©2018 福建农林大学校园二手市场</p>
     </div>
 </div>
 <!--

@@ -21,7 +21,7 @@
 	   <result column="status" property="status" jdbcType="TINYINT" />
 	</resultMap>
   <select id="getNoticeList" resultMap="BaseResultMap">
-     select * from notice n,user u where n.user_id=u.id order by n.create_at desc
+     select * from notice n,user u where n.user_id=u.id order by n.create_at desc limit 15
   </select>
    <insert id="insertSelective" parameterType="com.ldu.pojo.Notice" >
 	 insert into notice(id,user_id,create_at,context,status) values(#{id},#{user.id},#{createAt},#{context},#{status})

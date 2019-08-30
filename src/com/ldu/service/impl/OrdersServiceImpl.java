@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ldu.dao.OrdersMapper;
+import com.ldu.pojo.Goods;
 import com.ldu.pojo.Orders;
 import com.ldu.service.OrdersService;
 
@@ -83,12 +85,24 @@ public class OrdersServiceImpl implements OrdersService {
 		 ordersMapper.deleteByPrimaryKeys(id);
 	}
 
+//	@Override
+//	public List<Orders> getPageOrdersByOrders(Long orderNum, String orderInformation, Integer orderState, int pageNum,
+//			int pageSize) {
+//		PageHelper.startPage(pageNum, pageSize);
+//		List<Orders> orders = ordersMapper.getPageOrdersByOrders(orderNum,orderInformation,orderState);
+//		return orders;
+//	}
+
 	@Override
-	public List<Orders> getPageOrdersByOrders(Long orderNum, String orderInformation, Integer orderState, int pageNum,
-			int pageSize) {
+	public PageInfo<Orders> getPageOrdersByOrders(int pageNum, int pageSize, Orders searchOrders) {
+		int start = (pageNum-1)*pageSize;
 		PageHelper.startPage(pageNum, pageSize);
-		List<Orders> orders = ordersMapper.getPageOrdersByOrders(orderNum,orderInformation,orderState);
-		return orders;
+		List<Orders> List = this.ordersMapper.getPageOrdersByOrders(searchOrders);
+		for (Orders good : List) {
+			System.out.print(good.getId()+"   ");
+		}
+		PageInfo<Orders> pageResult = new PageInfo<>(List);
+		return pageResult;
 	}
 
 

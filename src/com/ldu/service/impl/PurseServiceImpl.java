@@ -7,20 +7,22 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ldu.dao.PurseMapper;
+import com.ldu.pojo.Goods;
 import com.ldu.pojo.Purse;
 import com.ldu.service.PurseService;
 
 @Service("PurserService")
 public class PurseServiceImpl implements PurseService{
 	 @Resource
-	 private PurseMapper perseMapper;
+	 private PurseMapper purseMapper;
 
 
 	@Override
 	public void updatePurseByuserId(Integer userId, Float balance) {
 		// TODO Auto-generated method stub
-		perseMapper.updatePurseByuserId(userId, balance);
+		purseMapper.updatePurseByuserId(userId, balance);
 		
 	}
 
@@ -28,35 +30,35 @@ public class PurseServiceImpl implements PurseService{
 	@Override
 	public void updatePurseOfdel(Integer userId, Float balance) {
 		// TODO Auto-generated method stub
-		perseMapper.updatePurseOfdel(userId, balance);
+		purseMapper.updatePurseOfdel(userId, balance);
 	}
 
 
 	@Override
 	public void addPurse(Integer userId) {
 		// TODO Auto-generated method stub
-		perseMapper.addPurse(userId);
+		purseMapper.addPurse(userId);
 	}
 
 
 	@Override
 	public Purse getPurseByUserId(Integer user_id) {
 		// TODO Auto-generated method stub
-		return perseMapper.selectPurseByUserId(user_id);
+		return purseMapper.selectPurseByUserId(user_id);
 	}
 
 
 	@Override
 	public void updatePurse(Purse purse) {
 		// TODO Auto-generated method stub
-		perseMapper.updatePurse(purse);
+		purseMapper.updatePurse(purse);
 		
 	}
 
 
 	@Override
 	public int getPurseNum() {
-		List<Purse> purse= perseMapper.selectPurseList();
+		List<Purse> purse= purseMapper.selectPurseList();
 		return purse.size();
 	}
 
@@ -64,29 +66,29 @@ public class PurseServiceImpl implements PurseService{
 	@Override
 	public List<Purse> getPagePurse(int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<Purse> purse =perseMapper.selectPurseList();
+		List<Purse> purse =purseMapper.selectPurseList();
 		return purse;
 	}
 
 
-	@Override
-	public List<Purse> getPagePurseByPurse(Integer userId,Integer state, int pageNum, int pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
-		List<Purse> purse =perseMapper.getPagePurseByPurse(userId,state);
-		return purse;
-	}
+//	@Override
+//	public List<Purse> getPagePurseByPurse(Integer userId,Integer state, int pageNum, int pageSize) {
+//		PageHelper.startPage(pageNum, pageSize);
+//		List<Purse> purse =purseMapper.getPagePurseByPurse(userId,state);
+//		return purse;
+//	}
 
 
 	@Override
 	public Purse getPurseById(int id) {
-		return perseMapper.selectPurseById(id);
+		return purseMapper.selectPurseById(id);
 	}
 
 
 	@Override
 	public void updateByPrimaryKey(Integer id, Purse purse) {
 		purse.setId(id);
-		perseMapper.updateByPrimaryKey(purse);
+		purseMapper.updateByPrimaryKey(purse);
 		
 	}
 
@@ -94,7 +96,7 @@ public class PurseServiceImpl implements PurseService{
 	@Override
 	public void updatePursePassById(Integer id,Purse purse) {
 		purse.setId(id);
-		perseMapper.updatePurseById(purse);
+		purseMapper.updatePurseById(purse);
 		
 	}
 
@@ -102,8 +104,21 @@ public class PurseServiceImpl implements PurseService{
 	@Override
 	public void updatePurseRefuseById(Integer id,Purse purse) {
 		purse.setId(id);
-		perseMapper.updatePurseById(purse);
+		purseMapper.updatePurseById(purse);
 		
+	}
+
+
+	@Override
+	public PageInfo<Purse> getPagePurseByPurse(int pageNum, int pageSize, Purse searchPurse) {
+		int start = (pageNum-1)*pageSize;
+		PageHelper.startPage(pageNum, pageSize);
+		List<Purse> List = this.purseMapper.getPagePurseByPurse(searchPurse);
+		for (Purse good : List) {
+			System.out.print(good.getId()+"   ");
+		}
+		PageInfo<Purse> pageResult = new PageInfo<>(List);
+		return pageResult;
 	}
 
 

@@ -29,7 +29,9 @@ public interface UserMapper{
 
 	User getUserById(int id);
 
-	List<User> getUserListByUser(@Param("phone") String phone,@Param("username") String username,@Param("qq") String qq);
+//	List<User> getUserListByUser(@Param("phone") String phone,@Param("username") String username,@Param("qq") String qq);
 
 	List<User> getUserListOrderByCreateAt();
+
+	List<User> getPageUserByUser(User searchUser);
 }

@@ -20,6 +20,7 @@
 
 table td {
 	text-align: center;
+	vertical-align: middle !important;
 	border: 0px;
 }
 </style>
@@ -31,36 +32,67 @@ table td {
 
 <link href="<%=basePath%>css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
+
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="<%=basePath%>font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<!-- page specific plugin styles -->
+
+<!-- text fonts -->
+<link rel="stylesheet" href="<%=basePath%>css/fonts.googleapis.com.css" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="<%=basePath%>css/ace.min.css"
+	class="ace-main-stylesheet" id="main-ace-style" />
+
+<!--[if lte IE 9]>
+			<link rel="stylesheet" href="<%=basePath%>css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+<link rel="stylesheet" href="<%=basePath%>css/ace-skins.min.css" />
+<link rel="stylesheet" href="<%=basePath%>css/ace-rtl.min.css" />
+
+<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="<%=basePath%>css/ace-ie.min.css" />
+		<![endif]-->
+
+<!-- inline styles related to this page -->
+
+<!-- ace settings handler -->
+<script src="<%=basePath%>js/ace-extra.min.js"></script>
+
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+<!--[if lte IE 8]>
+		<script src="<%=basePath%>js/html5shiv.min.js"></script>
+		<script src="<%=basePath%>js/respond.min.js"></script>
+		<![endif]-->
+
 </head>
 
 <body>
-	<jsp:include page="../main_top.jsp"></jsp:include>
-	<jsp:include page="../main_left.jsp"></jsp:include>
+	<div class="main-content">
+		<div class="main-content-inner">
 	<!--=============================================================================================================================================================================-->
 	<!--main-container-part-->
-	<div id="content" style="margin-right: 100px; margin-top: 40px;">
-		<!--breadcrumbs-->
-		<div id="content-header">
-			<div id="breadcrumb">
-				<a href="<%=basePath%>admin/indexs" title="主页" class="tip-bottom"><i
-					class="icon-home"></i>主页</a> <a title="充值列表" class="tip-bottom">充值钱包</a>
-			</div>
-		</div>
-		<!--End-breadcrumbs-->
-
+	<div id="content" class="page-content">
+	<div class="page-header">
+							<h1>
+								钱包管理
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									钱包列表
+								</small>
+							</h1>
+						</div>
 		<!-- Page table -->
-		<div class="container" style="width: 1000px;">
-			<!-- &lt;!&ndash; Marketing Icons Section &ndash;&gt;-->
-
-			<div class="col-lg-12">
-				<h2 class="page-header"
-					style="margin-top: 10px; text-align: center; font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;">
-					钱包列表显示</h2>
-			</div>
+		<div class="container" style="margin-left:0;">
 
 			<!--搜索栏-->
-			<form class="form-horizontal" id="myserchform" name="myform"
-				action="<%=basePath%>admin/searchPurse" method="post">
+			<form class="form-horizontal" id="mysearchform" name="myform"
+				action="<%=basePath%>admin/purseList" method="post">
+				<input id="page" style="display: none;" type="text" value="1" class="form-control" name="page" />
 				<div class="form-group">
 					<div class="col-sm-5" style="text-align: center;">
 						<%-- <span>ID：</span> <input type="number" placeholder="请输入id~" name="id" value="${searchpurse.id}" />  --%>
@@ -96,30 +128,30 @@ table td {
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${purseGrid.rows}" var="item">
+					<c:forEach items="${purseList}" var="item">
 						<tr>
 							<%-- <td><input type="checkbox" name="itemIds" value="${item.id}"></td> --%>
 							<%-- <td>${item.id}</td> --%>
 							<td>${item.userId}</td>
-							<td>${item.balance}</td>
+							<td>￥${item.balance}</td>
 							<td>${item.recharge}</td>
 							<td>${item.withdrawals}</td>
 							<td>
 							<c:if test="${item.state==null}"><span >-</span></c:if>
-							<c:if test="${item.state==0}"><span class="btn-primary btn-info">尚待审核</span> </c:if>
-							<c:if test="${item.state==1}"><span class="btn-primary btn-danger">审核失败</span></c:if>
-							<c:if test="${item.state==2}"><span class="btn-primary  btn-success">审核成功</span></c:if>
+							<c:if test="${item.state==0}"><span class="btn-primary btn-sm btn-info">尚待审核</span> </c:if>
+							<c:if test="${item.state==1}"><span class="btn-primary btn-sm btn-danger">审核失败</span></c:if>
+							<c:if test="${item.state==2}"><span class="btn-primary btn-sm btn-success">审核成功</span></c:if>
 							</td>
 							<td>
 							<c:choose>
 							  <c:when test="${item.state==null}"> 
-							   <button type="button" class="btn btn-primary" >无需审核</button>       
+							   <button type="button" class="btn btn-sm btn-primary" >无需审核</button>       
 							   </c:when>
 							   <c:when test="${item.state==0}"> 
-							   <button type="button" class="btn btn-info" onclick="doEdit(${item.id})">立即审核</button>       
+							   <button type="button" class="btn btn-sm btn-info" onclick="doEdit(${item.id})">立即审核</button>       
 							   </c:when>
 							   <c:otherwise> 
-							   <button type="button" class="btn btn-success" >已经审核</button>       
+							   <button type="button" class="btn btn-sm btn-success" >已经审核</button>       
 							   </c:otherwise>
 							</c:choose>
 							</td> 
@@ -129,22 +161,9 @@ table td {
 			</table>
 
 			<!--分页条-->
-			<div style="text-align: right">
-				<div class="pagination">
-					<ul>
-						<li><a>总钱包数:${purseGrid.total }个</a></li>
-						<li><a>第${purseGrid.current }页</a></li>
-						<c:if test="${purseGrid.current ne 1 }">
-							<li><a href="<%=basePath%>admin/purseList?pageNum=${purseGrid.current-1 }">上一页</a>
-							</li>
-						</c:if>
-
-						<c:if test="${purseGrid.current < (purseGrid.total+9)/10-1 }">
-							<li><a
-								href="<%=basePath%>admin/purseList?pageNum=${purseGrid.current+1 }">下一页</a>
-							</li>
-						</c:if>
-					</ul>
+			<div class="col-md-12 text-right">
+				<div id="Paginator" style="text-align: center">
+					<ul id="pageLimit"></ul>
 				</div>
 			</div>
 		</div>
@@ -152,7 +171,7 @@ table td {
 
 
 	<!--==================================================================================================================-->
-	<jsp:include page="../main_bottom.jsp"></jsp:include>
+	 
 
 	<!--修改  模态框（Modal） -->
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -216,7 +235,38 @@ table td {
 	src='<%=basePath%>js/bootstrap-datetimepicker.zh-CN.js'></script>
 <!-- 全选 base.js -->
 <script type="text/javascript" src="<%=basePath%>js/custom/base.js"></script>
+<!-- 分页插件 -->
+<script src="<%=basePath%>js/bootstrap-paginator.min.js"></script>
 <script type="text/javascript">
+
+
+////////////分页栏////////////
+$('#pageLimit').bootstrapPaginator({
+    currentPage: "${page}",//当前的请求页面。
+    totalPages: "${total}",//一共多少页。
+    size:"normal",//应该是页眉的大小。
+    bootstrapMajorVersion: 3,//bootstrap的版本要求。
+    alignment:"right",
+    numberOfPages:10,//一页列出多少数据。
+    //如下的代码是将页眉显示的中文显示我们自定义的中文。
+    itemTexts:function (type, page, current) {
+        switch (type) {
+	        case "first": return "首页";
+	        case "prev": return "上一页";
+	        case "next": return "下一页";
+	        case "last": return "末页";
+	        case "page": return page;
+        }
+    },
+    //给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+    onPageClicked:function (event, originalEvent, type, page){
+    	debugger;
+    	$("#page").val(page);
+    	$("#mysearchform").submit();
+    	
+    }
+});
+
 
 	/* 修改 */
 	function doEdit(id){

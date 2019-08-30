@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="row-fluid">
-		<div id="footer" class="span12">2018 &copy;福建农林大学校园二手市场</div>
+		<div id="footer" class="span12">2018 &copy;fafu校园二手市场</div>
 	</div>
 </body>
 </html>

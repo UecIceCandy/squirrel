@@ -2,6 +2,7 @@ package com.ldu.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.ldu.pojo.Purse;
 
 public interface PurseService {
@@ -29,7 +30,7 @@ public interface PurseService {
 
 	public List<Purse> getPagePurse(int pageNum, int pageSize);
 
-	public List<Purse> getPagePurseByPurse(Integer userId,Integer state, int pageNum, int pageSize);
+//	public List<Purse> getPagePurseByPurse(Integer userId,Integer state, int pageNum, int pageSize);
 
 	public Purse getPurseById(int id);
 
@@ -38,6 +39,8 @@ public interface PurseService {
 	public void updatePursePassById(Integer id, Purse purse);
 
 	public void updatePurseRefuseById(Integer id,Purse purse);
+
+	public PageInfo<Purse> getPagePurseByPurse(int pageNum, int pageSize, Purse searchPurse);
 
 
 

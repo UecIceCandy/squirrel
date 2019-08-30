@@ -20,13 +20,15 @@ public interface PurseMapper {
 
 	public List<Purse> selectPurseList();
 
-	public List<Purse> getPagePurseByPurse(@Param("userId")Integer userId,@Param("state")Integer state);
+//	public List<Purse> getPagePurseByPurse(@Param("userId")Integer userId,@Param("state")Integer state);
 
 	public Purse selectPurseById(int id);
 
 	public void updateByPrimaryKey(Purse purse);
 
 	public void updatePurseById(Purse purse);
+
+	public List<Purse> getPagePurseByPurse(Purse searchPurse);
 
 	
 

@@ -1,6 +1,8 @@
 package com.ldu.service;
 
 import java.util.List;
+
+import com.github.pagehelper.PageInfo;
 import com.ldu.pojo.CommentExtend;
 import com.ldu.pojo.Comments;
 import com.ldu.pojo.Goods;
@@ -98,7 +100,7 @@ public interface GoodsService {
 	 * @param pageSize
 	 * @return
 	 */
-	public List<Goods> getPageGoodsByGoods(Integer id, String name, Integer status, int pageNum, int pageSize);
+//	public List<Goods> getPageGoodsByGoods(Integer id, String name, Integer status, int pageNum, int pageSize);
 
 	
 	public CommentExtend selectCommentsByGoodsId(Integer id);
@@ -108,5 +110,7 @@ public interface GoodsService {
 	 * @param id
 	 */
 	public void addComments(Comments comments);
+
+	public PageInfo<Goods> getPageGoodsByGoods(int pageNum, int pageSize,  Goods searchGoods);
 
 }

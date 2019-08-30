@@ -40,7 +40,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
    <!--根据手机号 用户名 qq查询用户-->
-  <select id="getUserListByUser" resultMap="BaseResultMap" parameterType="String">
+  <select id="getPageUserByUser" resultMap="BaseResultMap" >
     select * from user where 1=1  
     <if test="phone != '' and phone != null" >
     AND phone like concat('%',#{phone},'%') 

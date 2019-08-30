@@ -2,6 +2,7 @@ package com.ldu.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.ldu.pojo.Orders;
 
 public interface OrdersService {
@@ -27,7 +28,9 @@ public interface OrdersService {
 
 	public void deleteOrdersByPrimaryKeys(int parseInt);
 
-	public List<Orders> getPageOrdersByOrders(Long orderNum, String orderInformation, Integer orderState, int pageNum,
-			int pageSize);
+//	public List<Orders> getPageOrdersByOrders(Long orderNum, String orderInformation, Integer orderState, int pageNum,
+//			int pageSize);
+
+	public PageInfo<Orders> getPageOrdersByOrders(int pageNum, int pageSize, Orders searchOrders);
 
 }

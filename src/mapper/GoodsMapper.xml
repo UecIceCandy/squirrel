@@ -27,7 +27,7 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="CHAR" />
     <result column="QQ" property="qq" jdbcType="VARCHAR" />
-    <result column="ucreate_at" property="createAt" jdbcType="VARCHAR" />
+    <result column="create_at" property="createAt" jdbcType="VARCHAR" />
     <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
     <result column="power" property="power" jdbcType="INTEGER" />
     <result column="last_login" property="lastLogin" jdbcType="VARCHAR" />
@@ -165,7 +165,7 @@
     limit #{limit,jdbcType=INTEGER}
   </select>
   
-   <select id="selectOrderByDate" resultMap="ResultMapWithBLOBs">
+   <select id="selectOrderByDate" parameterType="com.ldu.pojo.Goods" resultMap="ResultMapWithBLOBs">
     select * from goods where status=1
     order by polish_time DESC
     limit #{limit,jdbcType=INTEGER}
@@ -175,7 +175,7 @@
     select * from goods
   </select>
   
-   <select id="getPageGoodsByGoods" resultMap="ResultMapWithBLOBs">
+   <select id="getPageGoodsByGoods"  resultMap="ResultMapWithBLOBs">
     select * from goods where  1=1
     <if test="id != '' and id != null" >
      AND id like concat('%',#{id},'%')

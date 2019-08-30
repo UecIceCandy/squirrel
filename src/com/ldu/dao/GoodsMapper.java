@@ -131,9 +131,12 @@ public interface GoodsMapper {
 	 * @param form
 	 * @return
 	 */
-	List<Goods> getPageGoodsByGoods(@Param("id")Integer id, @Param("name")String name,@Param("status")Integer status);
+//	List<Goods> getPageGoodsByGoods(@Param("id")Integer id, @Param("name")String name,@Param("status")Integer status);
 	
 	CommentExtend selectCommentsByGoodsId(@Param("id")Integer id);
 
 	public void addComments(Comments comments);
+
+
+	List<Goods> getPageGoodsByGoods(Goods searchGoods);
 }

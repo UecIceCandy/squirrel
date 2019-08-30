@@ -14,15 +14,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
-.modal-header{
-	 text-align:center;
-	} 
-	
-table td{
- text-align:center;
- border:0px;
+<style>
+.modal-header {
+	text-align: center;
 }
 
+table td {
+	text-align: center;
+	vertical-align: middle !important;
+	border: 0px;
+}
+</style>
 
 </style>
 <title>用户列表</title>
@@ -33,40 +35,71 @@ table td{
 
 <link href="<%=basePath%>css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="<%=basePath%>font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<!-- page specific plugin styles -->
+
+<!-- text fonts -->
+<link rel="stylesheet" href="<%=basePath%>css/fonts.googleapis.com.css" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="<%=basePath%>css/ace.min.css"
+	class="ace-main-stylesheet" id="main-ace-style" />
+
+<!--[if lte IE 9]>
+			<link rel="stylesheet" href="<%=basePath%>css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+<link rel="stylesheet" href="<%=basePath%>css/ace-skins.min.css" />
+<link rel="stylesheet" href="<%=basePath%>css/ace-rtl.min.css" />
+
+<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="<%=basePath%>css/ace-ie.min.css" />
+		<![endif]-->
+
+<!-- inline styles related to this page -->
+
+<!-- ace settings handler -->
+<script src="<%=basePath%>js/ace-extra.min.js"></script>
+
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+<!--[if lte IE 8]>
+		<script src="<%=basePath%>js/html5shiv.min.js"></script>
+		<script src="<%=basePath%>js/respond.min.js"></script>
+		<![endif]-->
 </head>
 
 <body>
-	<jsp:include page="../main_top.jsp"></jsp:include>
-	<jsp:include page="../main_left.jsp"></jsp:include>
+	<div class="main-content">
+		<div class="main-content-inner">
 	<!--=============================================================================================================================================================================-->
 	<!--main-container-part-->
-	<div id="content" style="margin-right: 100px;margin-top: 40px;">
-		<!--breadcrumbs-->
-		<div id="content-header">
-			<div id="breadcrumb">
-				<a href="<%=basePath%>admin/indexs" title="主页"
-					class="tip-bottom"><i class="icon-home"></i>主页</a> <a title="用户列表"
-					class="tip-bottom">用户列表</a>
-			</div>
-		</div>
-		<!--End-breadcrumbs-->
-
+	
+	<div id="content" class="page-content" >
+		<div class="page-header">
+							<h1>
+								用户管理
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									用户列表
+								</small>
+							</h1>
+						</div>
+		
 		<!-- Page table -->
-		<div class="container" style="width: 1000px;">
-			<!-- &lt;!&ndash; Marketing Icons Section &ndash;&gt;-->
-
-			<div class="col-lg-12">
-				<h2 class="page-header"
-					style="margin-top:10px;text-align: center; font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;">
-					用户列表显示</h2>
-			</div>
+		<div class="container" style="margin-left:0;">
+		
 
 			<!--搜索栏-->
-			 <form class="form-horizontal" id="myserchform" name="myform" action="<%=basePath%>admin/searchUser" method="post">
+			 <form class="form-horizontal" id="mysearchform" name="myform" action="<%=basePath%>admin/userList" method="post">
+				<input id="page" style="display: none;" type="text" value="1" class="form-control" name="page" />
 				<div class="form-group">
 				<div  class="col-sm-8" style="text-align:center;">
 					<span >手机：</span>
-					<input type="number" placeholder="请输入正确的手机号~" name="phone" value="${searchuser.phone}"/>
+					<input type="number" placeholder="请输入手机号~" name="phone" value="${searchuser.phone}"/>
 					<span >昵称：</span>
 					<input type="text" name="username" value="${searchuser.username}"/>
 					<span >QQ：</span>
@@ -94,7 +127,7 @@ table td{
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${userGrid.rows}" var="item">
+					<c:forEach items="${userList}" var="item">
 						<tr>
 							<td ><input type="checkbox" name="itemIds" value="${item.id}"></td>
 							<td>${item.id}</td>
@@ -119,23 +152,9 @@ table td{
 			</table>
 
 			<!--分页条-->
-			<div style="text-align: right">
-				<div class="pagination">
-					<ul>
-						<li><a>总用户数:${userGrid.total }人</a></li>
-						<li><a>第${userGrid.current }页</a></li>
-						<c:if test="${userGrid.current ne 1 }">
-							<li><a 
-								href="<%=basePath%>admin/userList?pageNum=${userGrid.current-1 }">上一页</a>
-								</li>
-						</c:if>
-
-						<c:if test="${userGrid.current < (userGrid.total+9)/10-1 }">
-							<li><a
-								href="<%=basePath%>admin/userList?pageNum=${userGrid.current+1 }">下一页</a>
-							</li>
-						</c:if>
-					</ul>
+			<div class="col-md-12 text-right">
+				<div id="Paginator" style="text-align: center">
+					<ul id="pageLimit"></ul>
 				</div>
 			</div>
 		</div>
@@ -143,7 +162,7 @@ table td{
 
 	
 	<!--==================================================================================================================-->
-	<jsp:include page="../main_bottom.jsp"></jsp:include>
+	 
 	
 <!--修改  模态框（Modal） -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -264,8 +283,39 @@ table td{
 <script type="text/javascript" src='<%=basePath%>js/bootstrap-datetimepicker.zh-CN.js'></script>
 <!-- 全选 base.js -->
 <script type="text/javascript"src="<%=basePath%>js/custom/base.js"></script>
+<!-- 分页插件 -->
+<script src="<%=basePath%>js/bootstrap-paginator.min.js"></script>
 
 <script type="text/javascript">
+
+
+////////////分页栏////////////
+$('#pageLimit').bootstrapPaginator({
+    currentPage: "${page}",//当前的请求页面。
+    totalPages: "${total}",//一共多少页。
+    size:"normal",//应该是页眉的大小。
+    bootstrapMajorVersion: 3,//bootstrap的版本要求。
+    alignment:"right",
+    numberOfPages:10,//一页列出多少数据。
+    //如下的代码是将页眉显示的中文显示我们自定义的中文。
+    itemTexts:function (type, page, current) {
+        switch (type) {
+	        case "first": return "首页";
+	        case "prev": return "上一页";
+	        case "next": return "下一页";
+	        case "last": return "末页";
+	        case "page": return page;
+        }
+    },
+    //给每个页眉绑定一个事件，其实就是ajax请求，其中page变量为当前点击的页上的数字。
+    onPageClicked:function (event, originalEvent, type, page){
+    	debugger;
+    	$("#page").val(page);
+    	$("#mysearchform").submit();
+    	
+    }
+});
+
 		//初始化时间
 		$(".form_datetime").datetimepicker({  
 			format:'yyyy-mm-dd hh:ii',

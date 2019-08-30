@@ -1,7 +1,9 @@
 package com.ldu.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ldu.dao.UserMapper;
+import com.ldu.pojo.Goods;
 import com.ldu.pojo.User;
 import com.ldu.service.UserService;
 
@@ -97,19 +99,31 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	@Override
-	public List<User> getPageUserByUser(String phone, String username, String qq, int pageNum, int pageSize) {
-	 PageHelper.startPage(pageNum,pageSize);//分页核心代码
-	 List<User> list= userMapper.getUserListByUser(phone,username,qq);
-	 return list;
-	
-	}
+//	@Override
+//	public List<User> getPageUserByUser(String phone, String username, String qq, int pageNum, int pageSize) {
+//	 PageHelper.startPage(pageNum,pageSize);//分页核心代码
+//	 List<User> list= userMapper.getUserListByUser(phone,username,qq);
+//	 return list;
+//	
+//	}
 
 	@Override
 	public List<User> getUserOrderByDate(int size) {
 		PageHelper.startPage(1, size);
 		 List<User> list = userMapper.getUserListOrderByCreateAt();
 		return list;
+	}
+
+	@Override
+	public PageInfo<User> getPageUserByUser(int pageNum, int pageSize, User searchUser) {
+		int start = (pageNum-1)*pageSize;
+		PageHelper.startPage(pageNum, pageSize);
+		List<User> List = this.userMapper.getPageUserByUser(searchUser);
+		for (User user : List) {
+			System.out.print(user.getId()+"   ");
+		}
+		PageInfo<User> pageResult = new PageInfo<>(List);
+		return pageResult;
 	}
 
 

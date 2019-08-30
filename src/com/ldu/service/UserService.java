@@ -2,6 +2,7 @@ package com.ldu.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.ldu.pojo.User;
 
 public interface UserService {
@@ -27,8 +28,10 @@ public interface UserService {
 
 	public void deleteUserById(String idArr);
 
-	public List<User> getPageUserByUser(String phone, String username, String qq, int pageNum, int pageSize);
+//	public List<User> getPageUserByUser(String phone, String username, String qq, int pageNum, int pageSize);
 
 	public List<User> getUserOrderByDate(int size);
+
+	public PageInfo<User> getPageUserByUser(int pageNum, int pageSize, User searchUser);
 
 }

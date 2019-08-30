@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ldu.dao.GoodsMapper;
 import com.ldu.pojo.CommentExtend;
 import com.ldu.pojo.Comments;
@@ -114,12 +115,12 @@ public class GoodsServiceImpl implements GoodsService {
 		return list;
 	}
 
-	@Override
-	public List<Goods> getPageGoodsByGoods(Integer id,String name,Integer status, int pageNum, int pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
-		List<Goods> list =goodsMapper.getPageGoodsByGoods(id,name,status);
-		return list;
-	}
+//	@Override
+//	public List<Goods> getPageGoodsByGoods(Integer id,String name,Integer status, int pageNum, int pageSize) {
+//		PageHelper.startPage(pageNum, pageSize);
+//		List<Goods> list =goodsMapper.getPageGoodsByGoods(id,name,status);
+//		return list;
+//	}
 	
 	@Override
 	public CommentExtend selectCommentsByGoodsId(Integer id) {
@@ -129,6 +130,22 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void addComments(Comments comments) {
 		goodsMapper.addComments(comments);
+	}
+
+	@Override
+	public PageInfo<Goods> getPageGoodsByGoods(int pageNum, int pageSize, Goods searchGoods) {
+				int start = (pageNum-1)*pageSize;
+				//pageHelper的使用方法
+				//1. startPage--start
+				//2. 填充自己的查询逻辑
+				//3. pageHelper 收尾
+				PageHelper.startPage(pageNum, pageSize);
+				List<Goods> List = this.goodsMapper.getPageGoodsByGoods(searchGoods);
+				for (Goods good : List) {
+					System.out.print(good.getId()+"   ");
+				}
+				PageInfo<Goods> pageResult = new PageInfo<>(List);
+				return pageResult;
 	}
 }
 

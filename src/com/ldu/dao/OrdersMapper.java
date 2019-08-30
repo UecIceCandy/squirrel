@@ -58,6 +58,8 @@ public interface OrdersMapper {
 
 	public void deleteByPrimaryKeys(int id);
 
-	public List<Orders> getPageOrdersByOrders(@Param("orderNum")Long orderNum,@Param("orderInformation") String orderInformation,@Param("orderState") Integer orderState);
+	//public List<Orders> getPageOrdersByOrders(@Param("orderNum")Long orderNum,@Param("orderInformation") String orderInformation,@Param("orderState") Integer orderState);
+
+	public List<Orders> getPageOrdersByOrders(Orders searchOrders);
 
 }

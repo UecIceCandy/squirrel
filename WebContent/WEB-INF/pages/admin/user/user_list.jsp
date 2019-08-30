@@ -14,15 +14,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
-.modal-header{
-	 text-align:center;
-	} 
-	
-table td{
- text-align:center;
- border:0px;
+<style>
+.modal-header {
+	text-align: center;
 }
 
+table td {
+	text-align: center;
+	vertical-align: middle !important;
+	border: 0px;
+}
+</style>
 
 </style>
 <title>用户列表</title>
@@ -33,33 +35,63 @@ table td{
 
 <link href="<%=basePath%>css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="<%=basePath%>font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<!-- page specific plugin styles -->
+
+<!-- text fonts -->
+<link rel="stylesheet" href="<%=basePath%>css/fonts.googleapis.com.css" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="<%=basePath%>css/ace.min.css"
+	class="ace-main-stylesheet" id="main-ace-style" />
+
+<!--[if lte IE 9]>
+			<link rel="stylesheet" href="<%=basePath%>css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+<link rel="stylesheet" href="<%=basePath%>css/ace-skins.min.css" />
+<link rel="stylesheet" href="<%=basePath%>css/ace-rtl.min.css" />
+
+<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="<%=basePath%>css/ace-ie.min.css" />
+		<![endif]-->
+
+<!-- inline styles related to this page -->
+
+<!-- ace settings handler -->
+<script src="<%=basePath%>js/ace-extra.min.js"></script>
+
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+<!--[if lte IE 8]>
+		<script src="<%=basePath%>js/html5shiv.min.js"></script>
+		<script src="<%=basePath%>js/respond.min.js"></script>
+		<![endif]-->
 </head>
 
 <body>
-	<jsp:include page="../main_top.jsp"></jsp:include>
-	<jsp:include page="../main_left.jsp"></jsp:include>
+	<div class="main-content">
+		<div class="main-content-inner">
 	<!--=============================================================================================================================================================================-->
 	<!--main-container-part-->
-	<div id="content" style="margin-right: 100px;margin-top: 40px;">
-		<!--breadcrumbs-->
-		<div id="content-header">
-			<div id="breadcrumb">
-				<a href="<%=basePath%>admin/indexs" title="主页"
-					class="tip-bottom"><i class="icon-home"></i>主页</a> <a title="用户列表"
-					class="tip-bottom">用户列表</a>
-			</div>
-		</div>
-		<!--End-breadcrumbs-->
-
+	
+	<div id="content" class="page-content" >
+		<div class="page-header">
+							<h1>
+								用户管理
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									用户列表
+								</small>
+							</h1>
+						</div>
+		
 		<!-- Page table -->
-		<div class="container" style="width: 1000px;">
-			<!-- &lt;!&ndash; Marketing Icons Section &ndash;&gt;-->
-
-			<div class="col-lg-12">
-				<h2 class="page-header"
-					style="margin-top:10px;text-align: center; font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;">
-					用户列表显示</h2>
-			</div>
+		<div class="container" style="margin-left:0;">
+		
 
 			<!--搜索栏-->
 			 <form class="form-horizontal" id="mysearchform" name="myform" action="<%=basePath%>admin/userList" method="post">
@@ -130,7 +162,7 @@ table td{
 
 	
 	<!--==================================================================================================================-->
-	<jsp:include page="../main_bottom.jsp"></jsp:include>
+	 
 	
 <!--修改  模态框（Modal） -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

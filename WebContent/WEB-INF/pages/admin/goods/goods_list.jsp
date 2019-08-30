@@ -20,6 +20,41 @@
 
 <link href="<%=basePath%>css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
+	<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="<%=basePath%>font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<!-- page specific plugin styles -->
+
+<!-- text fonts -->
+<link rel="stylesheet" href="<%=basePath%>css/fonts.googleapis.com.css" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="<%=basePath%>css/ace.min.css"
+	class="ace-main-stylesheet" id="main-ace-style" />
+
+<!--[if lte IE 9]>
+			<link rel="stylesheet" href="<%=basePath%>css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+<link rel="stylesheet" href="<%=basePath%>css/ace-skins.min.css" />
+<link rel="stylesheet" href="<%=basePath%>css/ace-rtl.min.css" />
+
+<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="<%=basePath%>css/ace-ie.min.css" />
+		<![endif]-->
+
+<!-- inline styles related to this page -->
+
+<!-- ace settings handler -->
+<script src="<%=basePath%>js/ace-extra.min.js"></script>
+
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+<!--[if lte IE 8]>
+		<script src="<%=basePath%>js/html5shiv.min.js"></script>
+		<script src="<%=basePath%>js/respond.min.js"></script>
+		<![endif]-->
 <style>
 .modal-header {
 	text-align: center;
@@ -27,7 +62,7 @@
 
 table td {
 	text-align: center;
-	vertical-align:middle !important;
+	vertical-align: middle !important;
 	border: 0px;
 }
 </style>
@@ -37,106 +72,105 @@ table td {
 </head>
 
 <body>
-	<jsp:include page="../main_top.jsp"></jsp:include>
-	<jsp:include page="../main_left.jsp"></jsp:include>
+	<div class="main-content">
+		<div class="main-content-inner">
 	<!--=============================================================================================================================================================================-->
 	<!--main-container-part-->
-	<div id="content" style="margin-top: 40px;">
-		<!--breadcrumbs-->
-		<div id="content-header">
-			<div id="breadcrumb">
-				<a href="<%=basePath%>admin/indexs" title="主页" class="tip-bottom"><i
-					class="icon-home"></i>主页</a> <a title="商品列表" class="tip-bottom">商品列表</a>
-			</div>
-		</div>
-		<!--End-breadcrumbs-->
-
+	<div id="content" class="page-content">
+		<div class="page-header">
+							<h1>
+								商品管理
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									商品列表
+								</small>
+							</h1>
+						</div>
 		<!-- Page table -->
-		<div class="container" style="width: 1000px;">
-			<!-- &lt;!&ndash; Marketing Icons Section &ndash;&gt;-->
-
-			<div class="col-lg-12">
-				<h2 class="page-header"
-					style="margin-top: 10px; text-align: center; font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;">
-					商品列表显示</h2>
-			</div>
+		<div class="container" style="margin-left:0;">
 
 			<!--搜索栏-->
-			<form class="form-horizontal" id="mysearchform" name="myform"
-				action="<%=basePath%>admin/goodsList" method="post">
-				<input id="page" style="display: none;" type="text" value="1" class="form-control" name="page" />
-				<div class="form-group">
-					<div class="col-sm-8" style="text-align: center;">
-						<span>商品ID：</span> <input type="number" placeholder="请输入纯数字~"
-							name="id" value="${searchgoods.id}" /> <span>名称：</span> <input
-							type="text" name="name" value="${searchgoods.name}" />
-							
-							<span>状态：</span>
-						<select class="form-control" name="status" id="myselected" style="width:100px;font-size:12px;display:inline" >
-							<option value="" selected="selected">选择商品状态</option>
-							<option value="1">在售</option>
-							<option value="0">下架</option>
-						</select>
+			<div class="col-xs-12">
+				<form class="form-horizontal" id="mysearchform" name="myform"
+					action="<%=basePath%>admin/goodsList" method="post">
+					<input id="page" style="display: none;" type="text" value="1"
+						class="form-control" name="page" />
+					<div class="form-group">
+						<div class="col-sm-8" style="text-align: center;">
+							<span>商品ID：</span> <input type="number" placeholder="请输入纯数字~"
+								name="id" value="${searchgoods.id}" /> <span>名称：</span> <input
+								type="text" name="name" value="${searchgoods.name}" /> <span>状态：</span>
+							<select class="form-control" name="status" id="myselected"
+								style="width: 150px; font-size: 12px; display: inline">
+								<option value="" selected="selected">选择商品状态</option>
+								<option value="1">在售</option>
+								<option value="0">下架</option>
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<button class="btn btn-success btn-sm" type="submit">查找</button>
+							<button class="btn btn-danger btn-sm" type="button"
+								id="deleteGoodsButton">删除</button>
+						</div>
 					</div>
-					<div class="col-sm-4">
-						<button class="btn btn-success btn-sm" type="submit">查找</button>
-						<button class="btn btn-danger btn-sm" type="button"
-							id="deleteGoodsButton">删除</button>
-					</div>
-				</div>
-			</form>
-
+				</form>
+			</div>
 			<!--表格显示-->
-			<table class="table .table-responsive table-bordered table-hover">
-				<thead>
-					<tr>
-						<th><input type="checkbox" id="selectAllButton"></th>
-						<th>ID</th>
-						<th>名称</th>
-						<th>类别</th>
-						<th>价格</th>
-						<th>创建时间</th>
-						<th>状态</th>
-						<th>操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${goodsList}" var="item">
-						<tr>
-							<td><input type="checkbox" name="itemIds" value="${item.id}"></td>
-							<td>${item.id}</td>
-							<td>${item.name}</td>
-							<td><c:if test="${item.catelogId == 1}">
-									<span> 闲置数码</span>
-								</c:if> <c:if test="${item.catelogId == 2}">
-									<span>校园代步 </span>
-								</c:if> <c:if test="${item.catelogId == 3}">
-									<span> 电器日用 </span>
-								</c:if> <c:if test="${item.catelogId == 4}">
-									<span> 图书教材 </span>
-								</c:if> <c:if test="${item.catelogId == 5}">
-									<span>美妆衣物 </span>
-								</c:if> <c:if test="${item.catelogId == 6}">
-									<span> 运动棋牌</span>
-								</c:if> <c:if test="${item.catelogId == 7}">
-									<span> 票券小物</span>
-								</c:if></td>
-							<td>￥${item.realPrice}</td>
-							<td>${item.startTime}</td>
-							<td><c:if test="${item.status == 1}">
-									<span style="color: blue">在售</span>
-								</c:if> <c:if test="${item.status == 0}">
-									<span style="color: red">下架</span>
-								</c:if></td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sm"
-									onclick="doView(${item.id})">查看</button>
-								<button type="button" class="btn btn-info btn-sm"
-									onclick="doEdit(${item.id})">修改</button>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+			<div class="row">
+				<div class="col-xs-12">
+					<table id="simple-table" class="table  table-bordered table-hover">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selectAllButton"></th>
+								<th>ID</th>
+								<th>名称</th>
+								<th>类别</th>
+								<th>价格</th>
+								<th>创建时间</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${goodsList}" var="item">
+								<tr>
+									<td><input type="checkbox" name="itemIds"
+										value="${item.id}"></td>
+									<td>${item.id}</td>
+									<td>${item.name}</td>
+									<td><c:if test="${item.catelogId == 1}">
+											<span> 闲置数码</span>
+										</c:if> <c:if test="${item.catelogId == 2}">
+											<span>校园代步 </span>
+										</c:if> <c:if test="${item.catelogId == 3}">
+											<span> 电器日用 </span>
+										</c:if> <c:if test="${item.catelogId == 4}">
+											<span> 图书教材 </span>
+										</c:if> <c:if test="${item.catelogId == 5}">
+											<span>美妆衣物 </span>
+										</c:if> <c:if test="${item.catelogId == 6}">
+											<span> 运动棋牌</span>
+										</c:if> <c:if test="${item.catelogId == 7}">
+											<span> 票券小物</span>
+										</c:if></td>
+									<td>￥${item.realPrice}</td>
+									<td>${item.startTime}</td>
+									<td><c:if test="${item.status == 1}">
+											<span style="color: blue">在售</span>
+										</c:if> <c:if test="${item.status == 0}">
+											<span style="color: red">下架</span>
+										</c:if></td>
+									<td>
+										<button type="button" class="btn btn-primary btn-sm"
+											onclick="doView(${item.id})">查看</button>
+										<button type="button" class="btn btn-info btn-sm"
+											onclick="doEdit(${item.id})">修改</button>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 
 			<!--分页条-->
 			<div class="col-md-12 text-right">
@@ -149,7 +183,7 @@ table td {
 
 
 	<!--==================================================================================================================-->
-	<jsp:include page="../main_bottom.jsp"></jsp:include>
+	 
 
 	<!--修改  模态框（Modal） -->
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"

@@ -56,27 +56,28 @@ public class AdminController {
 		return "/admin/login";
 	}
 
-	@RequestMapping(value = "/index", method = RequestMethod.POST)
+	@RequestMapping(value = "/index")
 	public String index(HttpServletRequest request, Admin admins) {
+		
 		Admin myadmin = adminService.findAdmin(admins.getPhone(), admins.getPassword());
 		if (myadmin != null) {
 			request.getSession().setAttribute("admin", myadmin);
-			return "/admin/index";
+			return "redirect:/admin/home";
 		}
-		return "/admin/login";
+		return "redirect:/admin";
 
 	}
 
-	@RequestMapping(value = "/indexs")
-	public String indexs(HttpServletRequest request) {
+	@RequestMapping(value = "/home")
+	public String home(HttpServletRequest request) {
 		Admin admin = (Admin) request.getSession().getAttribute("admin");
 		if (admin != null) {
 			Integer id = admin.getId();
 			Admin myadmin = adminService.findAdminById(id);
 			request.getSession().setAttribute("admin", myadmin);
-			return "/admin/index";
+			return "/admin/home";
 		}
-		return "/admin/login";
+		return "redirect:/admin";
 
 	}
 	
@@ -691,5 +692,19 @@ public class AdminController {
 		 this.purseService.updateByPrimaryKey(id,purse);//修改state为null
 	}
 	
+	
+	/////////test
+	@RequestMapping(value = "/welcome")
+	public String table() {
+		
+		return "/admin/welcome";
+	}
+	
+/////////test
+@RequestMapping(value = "/blank")
+public String blank() {
+	
+	return "/admin/blank";
+}
 	
 }

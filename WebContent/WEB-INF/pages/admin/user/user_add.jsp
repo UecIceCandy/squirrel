@@ -15,23 +15,59 @@
 <script type="text/javascript" charset="utf-8"
 	src="<c:url value="/js/script_user.js"/>"></script>
 <link rel="stylesheet" href="<c:url value="/css/info_main.css"/>" />
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="<%=basePath%>font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<!-- page specific plugin styles -->
+
+<!-- text fonts -->
+<link rel="stylesheet" href="<%=basePath%>css/fonts.googleapis.com.css" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="<%=basePath%>css/ace.min.css"
+	class="ace-main-stylesheet" id="main-ace-style" />
+
+<!--[if lte IE 9]>
+			<link rel="stylesheet" href="<%=basePath%>css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+<link rel="stylesheet" href="<%=basePath%>css/ace-skins.min.css" />
+<link rel="stylesheet" href="<%=basePath%>css/ace-rtl.min.css" />
+
+<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="<%=basePath%>css/ace-ie.min.css" />
+		<![endif]-->
+
+<!-- inline styles related to this page -->
+
+<!-- ace settings handler -->
+<script src="<%=basePath%>js/ace-extra.min.js"></script>
+
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+<!--[if lte IE 8]>
+		<script src="<%=basePath%>js/html5shiv.min.js"></script>
+		<script src="<%=basePath%>js/respond.min.js"></script>
+		<![endif]-->
+
 </head>
 <body>
 
-	<jsp:include page="../main_top.jsp"></jsp:include>
-	<jsp:include page="../main_left.jsp"></jsp:include>
+	<div class="main-content">
+		<div class="main-content-inner">
 	<!--=============================================================================================================================================================================-->
 	<!--main-container-part-->
-	<div id="content">
-		<!--breadcrumbs-->
-		<div id="content-header">
-			<div id="breadcrumb">
-				<a href="<c:url value="/back"/>" title="主页"
-					class="tip-bottom"> <i class="icon-home"></i>主页
-				</a> <a title="用户信息" class="tip-bottom">用户信息</a>
-			</div>
-		</div>
-		<!--End-breadcrumbs-->
+	<div id="content" class="page-content">
+	<div class="page-header">
+							<h1>
+								用户管理
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									用户添加
+								</small>
+							</h1>
+						</div>
 		<!-- Tabs Container-->
 		<section id="tabsContainer" class="clearfix">
 			<!--Inner-->
@@ -107,6 +143,6 @@
 
 	</div>
 	<!--==================================================================================================================-->
-	<jsp:include page="../main_bottom.jsp"></jsp:include>
+	 
 	<!--End Page Wrapper-->
 </body>

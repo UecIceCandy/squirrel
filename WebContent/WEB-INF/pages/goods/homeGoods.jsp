@@ -11,7 +11,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" content="index, follow">
-    <title>福建农林大学校园校园二手市场</title>
+    <title>FAFU校园二手市场</title>
     <link rel="icon" href="<%=basePath%>img/logo.jpg" type="image/x-icon"/>
    
     <script type="text/javascript" src="<%=basePath%>js/jquery.js" ></script>
@@ -112,7 +112,7 @@
             <header class="navbar navbar-default navbar-fixed-top navbar-top">
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="#" class="navbar-brand"><span class="logo"><i class="fa fa-recycle"></i> FaFu</span></a>
+                        <a href="<%=basePath%>goods/homeGoods" class="navbar-brand"><span class="logo"><i class="fa fa-recycle"></i> FaFu</span></a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -311,8 +311,7 @@
                                                         <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
                                                         <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
                                                         <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
-                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
-                                                        
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>                       
                                                     </ul>
                                                 </div>
                                                 <div class="product-footer">
@@ -404,9 +403,280 @@
                                      </c:forEach>  
                                     </div>
                                 </div>
-                    </div>
-                </div>
-            </section>
+  <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>校园代步</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods2}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>电器日用</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods3}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>      
+                    <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>图书教材</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods4}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>美妆衣服</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods5}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>运动棋牌</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods6}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div> 
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>票卷小物</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods7}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>           
+                    
+           </div>
+      </div>
+</section>
         
    
 </div>

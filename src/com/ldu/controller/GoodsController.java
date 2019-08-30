@@ -108,7 +108,9 @@ public class GoodsController {
 			modelAndView.addObject(key, goodsAndImage);
 		}
 		List<Notice> notice=noticeService.getNoticeList();
+		List<Catelog> catelog=catelogService.getAllCatelog();
 		modelAndView.addObject("notice", notice);
+		modelAndView.addObject("catelog", catelog);
 		modelAndView.setViewName("goods/homeGoods");
 		return modelAndView;
 	}

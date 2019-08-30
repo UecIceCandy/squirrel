@@ -6,18 +6,41 @@
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>【福建农林大学】校园校园二手市场</title>
+<html>  
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="index, follow">
+    <title>FAFU校园二手市场</title>
     <link rel="icon" href="<%=basePath%>img/logo.jpg" type="image/x-icon"/>
-    <link rel="stylesheet" href="<%=basePath%>css/index.css" />
+   
     <script type="text/javascript" src="<%=basePath%>js/jquery.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/materialize.min.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/index.bundle.js" ></script>
     <link rel="stylesheet" href="<%=basePath%>css/materialize-icon.css" />
     <link rel="stylesheet" href="<%=basePath%>css/user.css" />
-    <script>
+    <link rel="stylesheet" href="<%=basePath%>css/custom/lightBorder.css" />
+    <link rel="stylesheet" href="<%=basePath%>css/custom/commentshow.css" />
+    	<script src="<%=basePath%>js/jquery-3.1.1.min.js"></script>
+		<script src="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.min.js"></script>
+		<link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.min.css" />
+		<link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.theme.default.min.css" />
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:regular,700,600&amp;latin" type="text/css" />
+        <!-- Essential styles -->
+        <link rel="stylesheet" href="<%=basePath%>assets/bootstrap/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="<%=basePath%>assets/plugins/font-awesome/css/font-awesome.css" type="text/css"> 
+
+        <!-- Dlapak styles -->
+        <link id="theme_style" type="text/css" href="<%=basePath%>assets/css/style1.css" rel="stylesheet" media="screen">
+
+        <!-- Assets -->
+        <link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.css">
+        <link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.theme.css">
+
+        <!-- JS Library -->
+        <script src="<%=basePath%>assets/js/jquery.js"></script>
+        
+        <script>
         function showLogin() {
             if($("#signup-show").css("display")=='block'){
                 $("#signup-show").css("display","none");
@@ -70,529 +93,641 @@
     			});
                
             });
-            
-         <%--    $("#login_password").blur(function(){
-            	var phone=$("#login_phone").val();
-                var password=$(this).val();
-                $.ajax({
-      				url:'<%=basePath%>user/password',
-      				type:'POST',
-      				data:{phone:phone,password:password},
-      				dataType:'json',
-      				success:function(json){
-      				if(json){
-      					if(json.flag){
-      						 $("#errorPassword").html("请核对账号密码，再重新输入!");
-      						 $("#loginIn").attr("disabled",true);
-      					}else{
-      						 $("#errorPassword").empty();
-      						 $("#loginIn").attr("disabled",false);
-      					}
-      				}else{
-      					if(json.flag){
-    						 $("#errorPassword").html("请输入的密码有误!");
-    						 $("#loginIn").attr("disabled",true);
-    					}if(json.flag==false){
-    						 $("#login_errorPhone").html("您输入的在账号有误!");
-    						 $("#loginIn").attr("disabled",true);
-    					}
-      				}
-      				},
-      				error:function(json){
-     					alert("系统出错啦")
-      				}
-      			});
-                 
-              }); --%>
+  
             
         });
-        
-        
+  
     </script>
-<body ng-view="ng-view">
-<!--
-    描述：顶部
--->
-<div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
-    <nav class="white nav1">
-        <div class="nav-wrapper">
-            <a href="<%=basePath%>goods/homeGoods" class="logo">
-                <em class="em1">福建农林大学</em>
-                <em class="em2">校园二手市场</em>
-                <em class="em3"></em>
-            </a>
-            <div class="nav-wrapper search-bar">
-                <form class="ng-pristine ng-invalid ng-invalid-required" action="<%=basePath%>goods/search">
-                    <div class="input-field">
-                        <input id="search" name="str" placeholder="搜点什么吧..." style="height: 40px;"
-                               class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"/>
-                      	<input type="submit" class="btn"value="搜索"></input>
-                        <label for="search" class="active">
-                            <i ng-click="search()" class="iconfont"></i>
-                        </label>
+    <script type="text/javascript">
+    function  addFocus(id) {
+    	location.href = '<%=basePath%>user/addFocus/'+id
+    	alert("已关注成功，查看关注列表~")
+    	
+    }
+    
+    </script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header class="navbar navbar-default navbar-fixed-top navbar-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="<%=basePath%>goods/homeGoods" class="navbar-brand"><span class="logo"><i class="fa fa-recycle"></i> FaFu</span></a>
                     </div>
-                </form>
-            </div>
-            <ul class="right">
-                <c:if test="${empty cur_user}">
-                    <li class="publish-btn">
-                       <button onclick="showLogin()" data-toggle="tooltip" 
-                                title="您需要先登录哦！" class="red lighten-1 waves-effect waves-light btn" 	>
-                            我要发布</button>
-                    </li>
-                </c:if>
-                <c:if test="${!empty cur_user}">
-                    <li class="publish-btn">
-                        <button data-position="bottom" class="red lighten-1 waves-effect waves-light btn">
-                            <a href="<%=basePath%>goods/publishGoods">我要发布</a>
-                        </button>
-                    </li>
-                    <li>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                         <c:if test="${empty cur_user}">
+                            <li class="new-ads"><a onclick="showLogin()" data-toggle="tooltip" title="您需要先登录哦！"  class="btn btn-ads btn-block">我要发布</a></li>
+                            </c:if>
+                            <c:if test="${!empty cur_user}">
+                            <li class="new-ads"><a href="<%=basePath%>goods/publishGoods" data-position="bottom"   class="btn btn-ads btn-block">我要发布</a></li>
+                            <li>
                         <a href="<%=basePath%>user/allGoods">我发布的商品</a>
                     </li>
                     <li>
                         <a>${cur_user.username}</a>
                     </li>
-                    <!-- <li class="notification">
-                        <i ng-click="showNotificationBox()" class="iconfont"></i>
-                    </li> -->
-                    <li class="changemore">
-                        <a class="changeMoreVertShow()">
-                            <i class="iconfont"></i>
-                        </a>
-                        <div class="more-vert">
-                            <ul class="dropdown-content">
-                                <li><a href="<%=basePath%>user/home">个人中心</a></li>
+                               <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><strong class="caret"></strong>&nbsp;Settings</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%=basePath%>user/home">个人中心</a></li>
                                 <li><a href="<%=basePath%>user/allFocus">我的关注</a></li>
                                 <li><a onclick="ChangeName()">更改用户名</a></li>
                                 <li><a href="<%=basePath%>admin" target="_blank">登录后台</a></li>
                                 <li><a href="<%=basePath%>user/logout">退出登录</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </c:if>
-                <c:if test="${empty cur_user}">
-                    <li>
-                        <a onclick="showLogin()">登录</a>
-                    </li>
-                    <li>
-                        <a onclick="showSignup()">注册</a>
-                    </li>
-                </c:if>
-            </ul>
-        </div>
-    </nav>
-</div>
-<!--
-    描述：登录
--->
-<div ng-controller="loginController" class="ng-scope">
-    <div id="login-show" class="login stark-components">
-        <div class="publish-box z-depth-4">
-            <div class="row">
-                <a onclick="showLogin()">
-                    <div class="col s12 title"></div>
-                </a>
-                <form action="<%=basePath%>user/login" method="post" role="form">
-                    <div class="input-field col s12">
-                        <input type="text" name="phone" id="login_phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>手机&nbsp;&nbsp;<div id="login_errorPhone" style="color:red;display:inline;"></div></label>
+                                </ul>
+                            </li>
+                            </c:if>
+							<c:if test="${empty cur_user}">
+                          
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">注册</a>
+                                <div class="dropdown-menu dropdown-login" style="padding:15px;min-width:250px">
+                                    <form action="<%=basePath%>user/addUser" method="POST" role="form" id="signup_form" >                       
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="fa fa-user"></i></span>
+                                                <input type="text" name="username" required="required" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                          <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="fa fa-phone"></i></span>
+                                                <input type="text" name="phone" id="phone" required="required" pattern="^1[0-9]{10}$" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="addon fa fa-lock"></i></span>
+                                                <input type="password" name="password" required="required" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="submit" id="register" class="btn btn-custom btn-block" value="点击注册">
+                                      
+                                    </form>                                    
+                                </div>
+                            </li>
+                             <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">登录</a>
+                                <div class="dropdown-menu dropdown-login" style="padding:15px;min-width:250px">
+                                    <form action="<%=basePath%>user/login" method="post" role="form">                       
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="fa fa-phone"></i></span>
+                                                <input type="text" name="phone" id="login_phone" required="required" pattern="^1[0-9]{10}$" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="addon fa fa-lock"></i></span>
+                                                <input type="password" id="login_password"  name="password" required="required" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="submit" id="loginIn" class="btn btn-custom btn-block" value="登录">
+                                      
+                                    </form>                                    
+                                </div>
+                            </li>                                              
+                             </c:if>
+                        </ul>
                     </div>
-                    <div class="input-field col s12">
-                        <input type="password" id="login_password"  name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
-                        <label>密码&nbsp;&nbsp;<div id="errorPassword" style="color:red;display:inline;"></div></label>
-                      <!--   <a ng-click="showForget()" class="forget-btn">忘记密码？</a> -->
-                    </div>
-                    <button type="submit" id="loginIn" class="waves-effect waves-light btn login-btn red lighten-1">
-                        <i class="iconfont left"></i>
-                        <em>登录</em>
-                    </button>
-                    <div class="col s12 signup-area">
-                        <em>没有账号？赶快</em>
-                        <a onclick="showSignup()" class="signup-btn">注册</a>
-                        <em>吧！</em>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--
-
-    描述：注册
--->
-<div ng-controller="signupController" class="ng-scope">
-    <div id="signup-show" class="signup stark-components">
-        <div class="publish-box z-depth-4">
-            <div class="row">
-                <a onclick="showSignup()">
-                    <div class="col s12 title"></div>
-                </a>
-                <form action="<%=basePath%>user/addUser" method="POST" role="form" id="signup_form">
-                    <div class="input-field col s12">
-                        <input type="text" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>昵称</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input type="text" name="phone" id="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>手机&nbsp;&nbsp;<div id="errorPhone" style="color:red;display:inline;"></div></label>
+                </div>
+            </header>
+            <section class="hero">
+                <div class="container text-center">
+                    <h2 class="hero-title">福建农林大学二手交易平台</h2>
+                    <p class="hero-description hidden-xs">找到你想要的一切</p>
+                    <div class="row hero-search-box">
+                        <form  action="<%=basePath%>goods/search" >
+                            <div class="col-md-8 col-sm-6 search-input">
+                                <input id="search" name="str" type="text" class="form-control input-lg search-first" align="center" placeholder="搜点什么吧">
+                            </div>
                            
+                            <div class="col-md-4 col-sm-6 search-input">
+                                <button value="搜索" class="btn btn-custom btn-block btn-lg"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="input-field col s12">
-                        <input type="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
-                        <label>密码</label>
-                    </div>
-                    <div ng-show="checkTelIsShow" class="col s12">
-                        <button type="submit" id="register" class="waves-effect waves-light btn verify-btn red lighten-1">
-                            <i class="iconfont left"></i>
-                            <em>点击注册</em>
-                        </button>
-                    </div>
-                    <div ng-show="checkTelIsShow" class="login-area col s12">
-                        <em>已有账号？去</em>
-                        <a onclick="showLogin()">登录</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                </div>
+            </section>
+            <section class="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog"><i class="fa fa-fire shortcut-icon icon-orange"></i></a>
+                                        <a href="<%=basePath%>goods/catelog"><h3>最新发布</h3></a>
+                                        <span class="total-items">234,567</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog/1"><i class="fa fa-mobile-phone shortcut-icon icon-dark-blue"></i></a>
+                                        <a href="<%=basePath%>goods/catelog/1"><h3>闲置数码</h3></a>
+                                        <span class="total-items">25,366</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog/2"><i class="fa fa-bicycle shortcut-icon icon-brown"></i></a>
+                                        <a href="<%=basePath%>goods/catelog/2"><h3>校园代步</h3></a>
+                                        <span class="total-items">252,546</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog/3"><i class="fa fa-television shortcut-icon icon-violet"></i></a>
+                                        <a href="<%=basePath%>goods/catelog/3"><h3>电器日用</h3></a>
+                                        <span class="total-items">52,546</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog/4"><i class="fa fa-book shortcut-icon icon-dark-blue"></i></a>
+                                        <a href="<%=basePath%>goods/catelog/4"><h3>图书教材</h3></a>
+                                        <span class="total-items">215,546</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog/5"><i class="fa fa-female shortcut-icon icon-orange"></i></a>
+                                        <a href="<%=basePath%>goods/catelog/5"><h3>美妆衣服</h3></a>
+                                        <span class="total-items">415,546</span>
+                                    </div>  
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog/6"><i class="fa fa-soccer-ball-o shortcut-icon icon-light-blue"></i></a>
+                                        <a href="<%=basePath%>goods/catelog/6"><h3>运动棋牌</h3></a>
+                                        <span class="total-items">15,546</span>
+                                    </div>  
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="shortcut">
+                                        <a href="<%=basePath%>goods/catelog/7"><i class="fa fa-ticket shortcut-icon icon-light-green"></i></a>
+                                        <a href="<%=basePath%>goods/catelog/7"><h3>票卷小物</h3></a>
+                                        <span class="total-items">152,546</span>
+                                    </div>  
+                                </div>
+                            </div>
+                            </div>
+  <div class="col-md-4 col-sm-4">              
+       <div class="box">
+			<div class="content">
+				<h1>Hello</h1>
+				<p>
+					临近毕业季的你是否有太多的闲置与校友分享，为了追求更好的校园服务，我们打造了一个全新的校园平台-福建农林大学校园二手市场。
+					这里有更多的闲置分享，更自由的校园话题讨论，你想要的，都在这里。
+					加入福建农林大学校园二手市场，你的大学，将更加精彩！
+				</p>
+			</div>
+		</div>             
 </div>
-
-<!--更改用户名-->
-<div ng-controller="changeNameController" class="ng-scope">
-    <div id="changeName" class="change-name stark-components">
-        <div class="publish-box z-depth-4">
-            <div class="row">
-                <div class="col s12 title">
-                    <h1>修改用户名</h1>
-                </div>
-                <form action="<%=basePath%>user/changeName" method="post"  role="form">
-                    <div class="input-field col s12">
-                        <input type="text" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>修改用户名</label>
-                         
-                    </div>
-                    <div ng-show="checkTelIsShow" class="col s12">
-                   <button class="waves-effect waves-light btn publish-btn red lighten-1">
-                            <i class="iconfont left"></i>
-                            <em>确认</em>
-                        </button>   
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+ </div>
+     <div class="row">
+                       <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>最新发布</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>                       
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>                       
+                         <div class="row">
+                                <div class="col-md-12 col-sm-6">
+                                <c:if test="${notice!=null}"> 
+                                <div class="section-header">
+                                        <h2>求购信息</h2>
+                                    </div>
+                                    
+        <div class="sliders owl-carousel">
+        <c:forEach items="${notice}" var="item" varStatus="status">
+                         <div class="testimonial">
+						<div class="test-info">
+							<div class="test-name">
+							<img class="test-pic" src="<%=basePath%>img/headpic3.jpg" alt="" />
+								<span>${item.user.username}</span>
+								
+							</div>
+						</div>
+						<p>
+							${item.context}
+							</p>
+							<p>
+							${item.createAt}
+						</p>
+					</div> 
+					</c:forEach>      				
+     </div>
+     </c:if>  
+                                    <div class="section-header">
+                                        <h2>闲置数码</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods1}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                 <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            
+                                        </div>
+                                     </c:forEach>  
+                                    </div>
+                                </div>
+  <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>校园代步</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods2}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>电器日用</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods3}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>      
+                    <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>图书教材</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods4}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>美妆衣服</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods5}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>运动棋牌</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods6}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div> 
+                                <div class="row">
+ <div class="col-md-12 col-sm-6 ">
+                                    <div class="section-header">
+                                        <h2>票卷小物</h2>
+                                    </div>
+                                    <div id="featured-products" class="owl-carousel owl-carousel-featured">
+                                     <c:forEach var="item" items="${catelogGoods7}">
+                                        <div class="item">
+                                         
+                                            <div class="item-ads-grid">
+                                               <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
+                                                <div class="item-img-grid">
+                                                    <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                </div>
+                                                <div class="item-title">
+                                                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4><c:out value="${item.goods.name}"></c:out></h4></a>
+                                                </div>
+                                                <div class="item-meta">
+                                                    <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</a></li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="product-footer">
+                                                    <div class="item-price-grid pull-left">
+                                                        <h3><c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action-grid pull-right">
+                                                        <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                     </c:forEach>
+                                    </div>
+                                </div>           
+                    
+           </div>
+      </div>
+</section>
+        
+   
 </div>
+<!-- Essentials -->
+<script src="<%=basePath%>assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.js"></script>
+<script src="<%=basePath%>assets/plugins/counter/jquery.countTo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
 
-<!--
-    描述：左侧导航条
--->
-<div ng-controller="sidebarController" class="sidebar stark-components ng-scope">
-    <li ng-class="{true: 'active'}[isAll]">
-        <a href="<%=basePath%>goods/catelog" class="index">
-            <img src="<%=basePath%>img/index.png">
-            <em>最新发布</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isDigital]">
-        <a href="<%=basePath%>goods/catelog/1" class="digital">
-            <img src="<%=basePath%>img/digital.png"  />
-            <em>闲置数码</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isRide]">
-        <a href="<%=basePath%>goods/catelog/2" class="ride">
-            <img src="<%=basePath%>img/ride.png"/>
-            <em>校园代步</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isCommodity]">
-        <a href="<%=basePath%>goods/catelog/3" class="commodity">
-            <img src="<%=basePath%>img/commodity.png"/>
-            <em>电器日用</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isBook]">
-        <a href="<%=basePath%>goods/catelog/4" class="book">
-            <img src="<%=basePath%>img/book.png"/>
-            <em>图书教材</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isMakeup]">
-        <a href="<%=basePath%>goods/catelog/5" class="makeup">
-            <img src="<%=basePath%>img/makeup.png"/>
-            <em>美妆衣物</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isSport]">
-        <a href="<%=basePath%>goods/catelog/6" class="sport">
-            <img src="<%=basePath%>img/sport.png"/>
-            <em>运动棋牌</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isSmallthing]">
-        <a href="<%=basePath%>goods/catelog/7" class="smallthing">
-            <img src="<%=basePath%>img/smallthing.png"/>
-            <em>票券小物</em>
-        </a>
-    </li>
-    <div class="info">
-        <a href="#">关于我们</a><em>-</em>
-        <a href="#">联系我们</a>
-        <p>©2019 福建农林大学校园二手市场</p>
-    </div>
-</div>
-<!--
+        // ===========Featured Owl Carousel============
+        if ($(".owl-carousel-featured").length > 0) {
+            $(".owl-carousel-featured").owlCarousel({
+                items: 3,
+                lazyLoad: true,
+                pagination: true,
+                autoPlay: 5000,
+                stopOnHover: true
+            });
+        }
 
-    描述：右侧显示部分
--->
-<div class="main-content">
-    <!--
-
-        描述：右侧banner（图片）部分
-    -->
-    <div class="slider-wapper">
-        <div class="slider" style="height: 440px; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-            <ul class="slides" style="height: 400px;">
-                <li class="active" style="opacity: 1;">
-                    <a href="<%=basePath%>goods/homeGoods">
-                        <div class="bannerimg">
-                            <ul class="bannerul">
-                                <p class="text6">欢迎来到福建农林大学校园二手市场。</p>
-                                <p class="text6">临近毕业季的你</p>
-                                <p class="text6">是否有太多的闲置与校友分享，为了追求更好的校园服务，我们打造了一个全新的校园平台福建农林大学校园二手市场。</p>
-                                <p class="text6">这里有更多的闲置分享，更自由的校园话题讨论，你想要的，都在这里。</p>
-                                <p class="text6">加入福建农林大学校园二手市场，你的大学，更加精彩。</p>
-                            </ul>
-                          <!--   <div class="logoimg">
-                                <img src="../img/p_logo.jpg" />
-                            </div> -->
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!--
-
-        描述：最新发布
-    -->
-    <div class="index-title">
-        <a href="">最新发布</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <!--
-
-        描述：闲置数码
-    -->
-    <div class="index-title">
-        <a href="">闲置数码</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods1}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <!--
-
-        描述：校园代步
-    -->
-    <div class="index-title">
-        <a href="">校园代步</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods2}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <div class="index-title">
-        <a href="">电器日用</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods3}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <div class="index-title">
-        <a href="">图书教材</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods4}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <div class="index-title">
-        <a href="">美妆衣物</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods5}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <div class="index-title">
-        <a href="">运动棋牌</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods6}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    <div class="index-title">
-        <a href="">票券小物</a>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${catelogGoods7}">//
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>福建农林大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-</div>
+        // ==================Counter====================
+        $('.item-count').countTo({
+            formatter: function (value, options) {
+                return value.toFixed(options.decimals);
+            },
+            onUpdate: function (value) {
+                console.debug(this);
+            },
+            onComplete: function (value) {
+                console.debug(this);
+            }
+        });
+    });
+</script>
+	<script>
+			$('.owl-carousel').owlCarousel({
+				margin: 10,
+				responsiveClass: true,
+				responsive: {
+					0: {
+						items: 1
+					},
+					680: {
+						items: 2
+					},
+					960: {
+						items: 3
+					}
+				}
+			})
+		</script>
 </body>
-</html>
+</html> 

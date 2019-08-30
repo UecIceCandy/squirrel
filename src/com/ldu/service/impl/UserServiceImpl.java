@@ -87,13 +87,12 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	@Override
 	public User getUserById(int id) {
 		
 		return userMapper.getUserById(id);
 	}
 
-	@Override
+
 	public void deleteUserById(String ids) {
 		this.userMapper.deleteByPrimaryKey(Integer.parseInt(ids));
 		
@@ -107,14 +106,13 @@ public class UserServiceImpl implements UserService {
 //	
 //	}
 
-	@Override
+
 	public List<User> getUserOrderByDate(int size) {
 		PageHelper.startPage(1, size);
 		 List<User> list = userMapper.getUserListOrderByCreateAt();
 		return list;
 	}
 
-	@Override
 	public PageInfo<User> getPageUserByUser(int pageNum, int pageSize, User searchUser) {
 		int start = (pageNum-1)*pageSize;
 		PageHelper.startPage(pageNum, pageSize);
@@ -122,7 +120,7 @@ public class UserServiceImpl implements UserService {
 		for (User user : List) {
 			System.out.print(user.getId()+"   ");
 		}
-		PageInfo<User> pageResult = new PageInfo<>(List);
+		PageInfo<User> pageResult = new PageInfo<User>(List);
 		return pageResult;
 	}
 

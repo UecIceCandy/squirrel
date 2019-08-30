@@ -25,7 +25,7 @@ public class OrdersServiceImpl implements OrdersService {
 		return orders;
 	}
 
-	@Override
+	
 	public List<Orders> getOrdersByUserAndGoods(Integer user_id) {
 		// TODO Auto-generated method stub
 		
@@ -33,7 +33,7 @@ public class OrdersServiceImpl implements OrdersService {
 		return ordersOfSell;
 	}
 
-	@Override
+	
 	public void addOrders(Orders orders) {
 		// TODO Auto-generated method stub
 		
@@ -41,46 +41,45 @@ public class OrdersServiceImpl implements OrdersService {
 		
 	}
 
-	@Override
+
 	public void deliverByOrderNum(Integer orderNum) {
 		// TODO Auto-generated method stub
 		ordersMapper.deliverByOrderNum(orderNum);
 	}
 
-	@Override
+
 	public void receiptByOrderNum(Integer orderNum) {
 		// TODO Auto-generated method stub
 		ordersMapper.receiptByOrderNum(orderNum);
 		
 	}
 
-	@Override
+
 	public int getOrdersNum() {
 		List<Orders> orders = ordersMapper.getOrdersList();
 	    return orders.size();
 	}
 
-	@Override
+
 	public List<Orders> getPageOrders(int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<Orders> list =ordersMapper.getOrdersList();
 		return list;
 	}
 
-	@Override
 	public Orders getOrdersById(int ordersId) {
 		Orders orders = ordersMapper.selectById(ordersId);
 	        return orders;
 	}
 
-	@Override
+
 	public void updateByPrimaryKey(Integer id, Orders orders) {
 			orders.setId(id);
 	        this.ordersMapper.updateByPrimaryKey(orders);
 		
 	}
 
-	@Override
+
 	public void deleteOrdersByPrimaryKeys(int id) {
 		 ordersMapper.deleteByPrimaryKeys(id);
 	}
@@ -93,7 +92,7 @@ public class OrdersServiceImpl implements OrdersService {
 //		return orders;
 //	}
 
-	@Override
+
 	public PageInfo<Orders> getPageOrdersByOrders(int pageNum, int pageSize, Orders searchOrders) {
 		int start = (pageNum-1)*pageSize;
 		PageHelper.startPage(pageNum, pageSize);
@@ -101,7 +100,7 @@ public class OrdersServiceImpl implements OrdersService {
 		for (Orders good : List) {
 			System.out.print(good.getId()+"   ");
 		}
-		PageInfo<Orders> pageResult = new PageInfo<>(List);
+		PageInfo<Orders> pageResult = new PageInfo<Orders>(List);
 		return pageResult;
 	}
 

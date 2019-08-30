@@ -52,7 +52,14 @@ public class AdminController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String login(HttpSession session) {
 		// 清除session
-		//session.invalidate();
+//		session.invalidate();
+		return "/admin/login";
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		// 清除session
+		session.invalidate();
 		return "/admin/login";
 	}
 

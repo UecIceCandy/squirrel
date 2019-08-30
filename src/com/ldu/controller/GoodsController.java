@@ -1,3 +1,4 @@
+
 package com.ldu.controller;
 
 import java.io.File;
@@ -30,11 +31,13 @@ import com.ldu.pojo.Comments;
 import com.ldu.pojo.Goods;
 import com.ldu.pojo.GoodsExtend;
 import com.ldu.pojo.Image;
+import com.ldu.pojo.Notice;
 import com.ldu.pojo.Purse;
 import com.ldu.pojo.User;
 import com.ldu.service.CatelogService;
 import com.ldu.service.GoodsService;
 import com.ldu.service.ImageService;
+import com.ldu.service.NoticeService;
 import com.ldu.service.PurseService;
 import com.ldu.service.UserService;
 import com.ldu.util.DateUtil;
@@ -53,6 +56,8 @@ public class GoodsController {
 	private UserService userService;
 	@Resource
 	private PurseService purseService;
+	@Resource
+	private NoticeService noticeService;
 	
 
 	/**
@@ -67,7 +72,7 @@ public class GoodsController {
 		// 商品种类数量
 		int catelogSize = 7;
 		// 每个种类显示商品数量
-		int goodsSize = 6;
+		int goodsSize = 8;
 
 		List<Goods> goodsList = null;
 		List<GoodsExtend> goodsAndImage = null;
@@ -103,6 +108,10 @@ public class GoodsController {
 			String key = "catelog" + "Goods" + i;
 			modelAndView.addObject(key, goodsAndImage);
 		}
+		List<Notice> notice=noticeService.getNoticeList();
+		List<Catelog> catelog=catelogService.getAllCatelog();
+		modelAndView.addObject("notice", notice);
+		modelAndView.addObject("catelog", catelog);
 		modelAndView.setViewName("goods/homeGoods");
 		return modelAndView;
 	}
@@ -430,4 +439,5 @@ public class GoodsController {
 		return modelAndView;
 	}
 	
+
 }

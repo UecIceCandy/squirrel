@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
-<title>Blank Page - Fafu Admin</title>
+<title>Home - Fafu 二手交易平台管理系统</title>
 
 <meta name="description" content="" />
 <meta name="viewport"
@@ -296,7 +296,8 @@
 
 							<li class="divider"></li>
 
-							<li><a href="#"> <i class="ace-icon fa fa-power-off"></i>
+							<li><a href="<%=basePath%>admin/logout"
+						onclick="return confirm('确认退出吗？');"> <i class="ace-icon fa fa-power-off"></i>
 									Logout
 							</a></li>
 						</ul></li>

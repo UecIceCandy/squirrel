@@ -1,3 +1,4 @@
+
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,17 +7,73 @@
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>fafu校园二手市场</title>
+<html>  
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="index, follow">
+    <title>FAFU校园二手市场</title>
     <link rel="icon" href="<%=basePath%>img/logo.jpg" type="image/x-icon"/>
-    <link rel="stylesheet" href="<%=basePath%>css/index.css" />
+   
     <script type="text/javascript" src="<%=basePath%>js/jquery.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/materialize.min.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/index.bundle.js" ></script>
     <link rel="stylesheet" href="<%=basePath%>css/materialize-icon.css" />
-    <script>
+    <link rel="stylesheet" href="<%=basePath%>css/user.css" />
+    <link rel="stylesheet" href="<%=basePath%>css/custom/lightBorder.css" />
+    <link rel="stylesheet" href="<%=basePath%>css/custom/commentshow.css" />
+    	<script src="<%=basePath%>js/jquery-3.1.1.min.js"></script>
+		<script src="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.min.js"></script>
+		<link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.min.css" />
+		<link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.theme.default.min.css" />
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:regular,700,600&amp;latin" type="text/css" />
+        <!-- Essential styles -->
+        <link rel="stylesheet" href="<%=basePath%>assets/bootstrap/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="<%=basePath%>assets/plugins/font-awesome/css/font-awesome.css" type="text/css"> 
+
+        <!-- Dlapak styles -->
+        <link id="theme_style" type="text/css" href="<%=basePath%>assets/css/style1.css" rel="stylesheet" media="screen">
+
+        <!-- Assets -->
+        <link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.css">
+        <link rel="stylesheet" href="<%=basePath%>assets/plugins/owl-carousel/owl.theme.css">
+
+        <!-- JS Library -->
+        <script src="<%=basePath%>assets/js/jquery.js"></script>
+        
+        <!-- Essentials -->
+<script src="<%=basePath%>assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>assets/plugins/owl-carousel/owl.carousel.js"></script>
+<script src="<%=basePath%>assets/plugins/counter/jquery.countTo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // ===========Featured Owl Carousel============
+        if ($(".owl-carousel-featured").length > 0) {
+            $(".owl-carousel-featured").owlCarousel({
+                items: 3,
+                lazyLoad: true,
+                pagination: true,
+                autoPlay: 5000,
+                stopOnHover: true
+            });
+        }
+
+        // ==================Counter====================
+        $('.item-count').countTo({
+            formatter: function (value, options) {
+                return value.toFixed(options.decimals);
+            },
+            onUpdate: function (value) {
+                console.debug(this);
+            },
+            onComplete: function (value) {
+                console.debug(this);
+            }
+        });
+    });
+</script>
+        <script>
         function showLogin() {
             if($("#signup-show").css("display")=='block'){
                 $("#signup-show").css("display","none");
@@ -44,275 +101,259 @@
                 $("#changeName").css("display","none");
             }
         }
+        
+        $(document).ready(function(){
+            //异步验证
+            $("#phone").blur(function(){
+              var phone=$(this).val();
+              $.ajax({
+    				url:'<%=basePath%>user/register',
+    				type:'POST',
+    				data:{phone:phone},
+    				dataType:'json',
+    				success:function(json){
+    					if(json.flag){
+    						 $("#errorPhone").html("账号已被注册，请重新输入!");
+    						 $("#register").attr("disabled",true);
+    					}else{
+    						 $("#errorPhone").empty();
+    						 $("#register").attr("disabled",false);
+    					}
+    				},
+    				error:function(){
+    					alert('请求超时或系统出错!');
+    				}
+    			});
+               
+            });
+  
+            
+        });
+  
     </script>
-<body ng-view="ng-view">
-<!--
-   fafu
-    时间：2018-2-24 13:28:16
-    描述：顶部
--->
-<div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
-    <nav class="white nav1">
-        <div class="nav-wrapper">
-            <a href="<%=basePath%>goods/homeGoods" class="logo">
-                <em class="em1">fafu</em>
-                <em class="em2">校园二手市场</em>
-                <em class="em3"></em>
-            </a>
-            <div class="nav-wrapper search-bar">
-                <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="">
-                    <div class="input-field">
-                        <input id="search" name="str" value="<c:out value="${search}"></c:out>" placeholder="搜点什么吧..." style="height: 40px;"
-                               class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"/>
-                        <input type="submit" class="btn"value="搜索"></input>
-                        <label for="search" class="active">
-                            <i ng-click="search()" class="iconfont"></i>
-                        </label>
+    <script type="text/javascript">
+    function  addFocus(id) {
+    	location.href = '<%=basePath%>user/addFocus/'+id
+    	alert("已关注成功，查看关注列表~")
+    	
+    }
+    
+    </script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header class="navbar navbar-default navbar-fixed-top navbar-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="<%=basePath%>goods/homeGoods" class="navbar-brand"><span class="logo"><i class="fa fa-recycle"></i> FaFu</span></a>
                     </div>
-                </form>
-            </div>
-            <ul class="right">
-                <c:if test="${empty cur_user}">
-                    <li class="publish-btn">
-                      <button onclick="showLogin()" data-toggle="tooltip" 
-                                title="您需要先登录哦！" class="red lighten-1 waves-effect waves-light btn" 	>
-                            我要发布</button>
-                    </li>
-                </c:if>
-                <c:if test="${!empty cur_user}">
-                    <li class="publish-btn">
-                        <button data-position="bottom" class="red lighten-1 waves-effect waves-light btn">
-                            <a href="<%=basePath%>goods/publishGoods">我要发布</a>
-                        </button>
-                    </li>
-                    <li>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                         <c:if test="${empty cur_user}">
+                            <li class="new-ads"><a onclick="showLogin()" data-toggle="tooltip" title="您需要先登录哦！"  class="btn btn-ads btn-block">我要发布</a></li>
+                            </c:if>
+                            <c:if test="${!empty cur_user}">
+                            <li class="new-ads"><a href="<%=basePath%>goods/publishGoods" data-position="bottom"   class="btn btn-ads btn-block">我要发布</a></li>
+                            <li>
                         <a href="<%=basePath%>user/allGoods">我发布的商品</a>
                     </li>
                     <li>
                         <a>${cur_user.username}</a>
                     </li>
-                    <!-- <li class="notification">
-                        <i ng-click="showNotificationBox()" class="iconfont"></i>
-                        <div ng-show="notification.tagIsShow" class="notification-amount red lighten-1 ng-binding ng-hide">0 </div>
-                    </li> -->
-                    <li class="changemore">
-                        <a class="changeMoreVertShow()">
-                            <i class="iconfont"></i>
-                        </a>
-                        <div class="more-vert">
-                            <ul class="dropdown-content">
-                                <li><a href="<%=basePath%>/user/home">个人中心</a></li>
-                                 <li><a href="<%=basePath%>user/allFocus">我的关注</a></li>
+                               <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><strong class="caret"></strong>&nbsp;Settings</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%=basePath%>user/home">个人中心</a></li>
+                                <li><a href="<%=basePath%>user/allFocus">我的关注</a></li>
                                 <li><a onclick="ChangeName()">更改用户名</a></li>
                                 <li><a href="<%=basePath%>admin" target="_blank">登录后台</a></li>
-                                <li><a href="<%=basePath%>/user/logout">退出登录</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </c:if>
-                <c:if test="${empty cur_user}">
-                    <li>
-                        <a onclick="showLogin()">登录</a>
-                    </li>
-                    <li>
-                        <a onclick="showSignup()">注册</a>
-                    </li>
-                </c:if>
-            </ul>
-        </div>
-    </nav>
-</div>
-<!--
-    描述：登录
--->
-<div ng-controller="loginController" class="ng-scope">
-    <div id="login-show" class="login stark-components">
-        <div class="publish-box z-depth-4">
-            <div class="row">
-                <a onclick="showLogin()">
-                    <div class="col s12 title"></div>
-                </a>
-                <form:form action="../../user/login" method="post" commandName="user" role="form">
-                    <div class="input-field col s12">
-                        <input type="text" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>手机</label>
+                                <li><a href="<%=basePath%>user/logout">退出登录</a></li>
+                                </ul>
+                            </li>
+                            </c:if>
+							<c:if test="${empty cur_user}">
+                          
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">注册</a>
+                                <div class="dropdown-menu dropdown-login" style="padding:15px;min-width:250px">
+                                    <form action="<%=basePath%>user/addUser" method="POST" role="form" id="signup_form" >                       
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="fa fa-user"></i></span>
+                                                <input type="text" name="username" required="required" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                          <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="fa fa-phone"></i></span>
+                                                <input type="text" name="phone" id="phone" required="required" pattern="^1[0-9]{10}$" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="addon fa fa-lock"></i></span>
+                                                <input type="password" name="password" required="required" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="submit" id="register" class="btn btn-custom btn-block" value="点击注册">
+                                      
+                                    </form>                                    
+                                </div>
+                            </li>
+                             <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">登录</a>
+                                <div class="dropdown-menu dropdown-login" style="padding:15px;min-width:250px">
+                                    <form action="<%=basePath%>user/login" method="post" role="form">                       
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="fa fa-phone"></i></span>
+                                                <input type="text" name="phone" id="login_phone" required="required" pattern="^1[0-9]{10}$" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon addon-login"><i class="addon fa fa-lock"></i></span>
+                                                <input type="password" id="login_password"  name="password" required="required" class="form-control input-login">                                            
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="submit" id="loginIn" class="btn btn-custom btn-block" value="登录">
+                                      
+                                    </form>                                    
+                                </div>
+                            </li>                                              
+                             </c:if>
+                        </ul>
                     </div>
-                    <div class="input-field col s12">
-                        <input type="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
-                        <label>密码</label>
-                       <!--  <a ng-click="showForget()" class="forget-btn">忘记密码？</a> -->
-                    </div>
-                    <button type="submit" class="waves-effect waves-light btn login-btn red lighten-1">
-                        <i class="iconfont left"></i>
-                        <em>登录</em>
-                    </button>
-                    <div class="col s12 signup-area">
-                        <em>没有账号？赶快</em>
-                        <a onclick="showSignup()" class="signup-btn">注册</a>
-                        <em>吧！</em>
-                    </div>
-                </form:form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--
-    描述：注册
--->
-<div ng-controller="signupController" class="ng-scope">
-    <div id="signup-show" class="signup stark-components">
-        <div class="publish-box z-depth-4">
-            <div class="row">
-                <a onclick="showSignup()">
-                    <div class="col s12 title"></div>
-                </a>
-                <form:form action="../../user/addUser" method="post" commandName="user" role="form">
-                    <div class="input-field col s12">
-                        <input type="text" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>昵称</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input type="text" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>手机</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input type="password" name="password" required="required" class="validate ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" />
-                        <label>密码</label>
-                    </div>
-                    <div ng-show="checkTelIsShow" class="col s12">
-                        <button type="submit" class="waves-effect waves-light btn verify-btn red lighten-1">
-                            <i class="iconfont left"></i>
-                            <em>点击注册</em>
-                        </button>
-                    </div>
-                    <div ng-show="checkTelIsShow" class="login-area col s12">
-                        <em>已有账号？去</em>
-                        <a onclick="showLogin()">登录</a>
-                    </div>
-                </form:form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--更改用户名-->
-<div ng-controller="changeNameController" class="ng-scope">
-    <div id="changeName" class="change-name stark-components">
-        <div class="publish-box z-depth-4">
-            <div class="row">
-                <div class="col s12 title">
-                    <h1>修改用户名</h1>
                 </div>
-                <form:form action="../../user/changeName" method="post" commandName="user" role="form">
-                    <div class="input-field col s12">
-                        <input type="text" name="username" required="required" class="validate ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-touched" />
-                        <label>修改用户名</label>
+            </header>
+            <div class="category-search">
+                <div class="container">
+                    <div class="row category-search-box">
+                          <form  action="<%=basePath%>goods/search" >
+                            <div class="col-md-8 col-sm-6 search-input">
+                                <input id="search" name="str" type="text" class="form-control input-lg search-first" align="center" placeholder="搜点什么吧">
+                            </div>
+                           
+                            <div class="col-md-4 col-sm-6 search-input">
+                                <button value="搜索" class="btn btn-custom btn-block btn-lg"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
                     </div>
-                    <div ng-show="checkTelIsShow" class="col s12">
-                        <button class="waves-effect waves-light btn publish-btn red lighten-1">
-                            <i class="iconfont left"></i>
-                            <em>确认</em>
-                        </button>
-                    </div>
-                </form:form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--
-
-    描述：左侧导航条
--->
-<div ng-controller="sidebarController" class="sidebar stark-components ng-scope">
-    <li ng-class="{true: 'active'}[isAll]">
-        <a href="<%=basePath%>goods/catelog" class="index">
-            <img src="<%=basePath%>img/index.png">
-            <em>最新发布</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isDigital]">
-        <a href="<%=basePath%>goods/catelog/1" class="digital">
-            <img src="<%=basePath%>img/digital.png"  />
-            <em>闲置数码</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isRide]">
-        <a href="<%=basePath%>goods/catelog/2" class="ride">
-            <img src="<%=basePath%>img/ride.png"/>
-            <em>校园代步</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isCommodity]">
-        <a href="<%=basePath%>goods/catelog/3" class="commodity">
-            <img src="<%=basePath%>img/commodity.png"/>
-            <em>电器日用</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isBook]">
-        <a href="<%=basePath%>goods/catelog/4" class="book">
-            <img src="<%=basePath%>img/book.png"/>
-            <em>图书教材</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isMakeup]">
-        <a href="<%=basePath%>goods/catelog/5" class="makeup">
-            <img src="<%=basePath%>img/makeup.png"/>
-            <em>美妆衣物</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isSport]">
-        <a href="<%=basePath%>goods/catelog/6" class="sport">
-            <img src="<%=basePath%>img/sport.png"/>
-            <em>运动棋牌</em>
-        </a>
-    </li>
-    <li ng-class="{true: 'active'}[isSmallthing]">
-        <a href="<%=basePath%>goods/catelog/7" class="smallthing">
-            <img src="<%=basePath%>img/smallthing.png"/>
-            <em>票券小物</em>
-        </a>
-    </li>
-    <div class="info">
-        <a href="" target="_blank">关于我们</a><em>-</em>
-        <a href="">联系我们</a>
-        <p>©2018 fafu校园二手市场</p>
-    </div>
-</div>
-<!--
-
-    描述：右侧显示部分
--->
-<div class="main-content">
-    <!--
-
-        描述：最新发布
-    -->
-    <div class="index-title">
-        <c:if test="${empty catelog.name}"><a href="">最新发布</a></c:if>
-         <c:if test="${!empty catelog.name}"><a href="">${catelog.name}</a></c:if>
-        <hr class="hr1">
-        <hr class="hr2">
-    </div>
-    <div class="waterfoo stark-components row">
-        <div class="item-wrapper normal">
-            <c:forEach var="item" items="${goodsExtendList}">
-                <div class="card col">
-                    <a href="<%=basePath%>goods/goodsId/${item.goods.id}">
-                        <div class="card-image">
-                            <img src="<%=basePath%>upload/${item.images[0].imgUrl}" />
-                        </div>
-                        <div class="card-content item-price"><c:out value="${item.goods.price}"></c:out></div>
-                        <div class="card-content item-name">
-                            <p><c:out value="${item.goods.name}"></c:out></p>
-                        </div>
-                        <div class="card-content item-location">
-                            <p>东华大学</p>
-                            <p><c:out value="${item.goods.startTime}"></c:out></p>
-                        </div>
-                    </a>
                 </div>
-            </c:forEach>
+            </div>
+            <section class="category-wrapper">
+                <div class="container">
+                    
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="widget">
+                                <div class="widget-header">
+                                    <h3>Browse by Category</h3>
+                                </div>
+                                <div class="widget-body">
+                                    <ul class="trends">
+                                        <li><a href="<%=basePath%>goods/catelog">最新发布 &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                        <li><a href="<%=basePath%>goods/catelog/1">闲置数码 &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                        <li><a href="<%=basePath%>goods/catelog/2">校园代步 &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                        <li><a href="<%=basePath%>goods/catelog/3">电器日用 &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                        <li><a href="<%=basePath%>goods/catelog/4">图书教材 &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                        <li><a href="<%=basePath%>goods/catelog/5">美妆衣服 &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                        <li><a href="<%=basePath%>goods/catelog/6">运动棋牌 &nbsp;<span class="item-numbers">(242)</span></a></li>
+                                        <li><a href="<%=basePath%>goods/catelog/7">票卷小物 &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                           
+                            <div class="search-results-box">
+                                <div class="row">
+                                    <div class="col-md-12 search-results">
+                                        Keyword : <span>"${catelog.name}"</span>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-results">
+                             <c:forEach var="item" items="${goodsExtendList}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        
+
+                                            <div class="row">
+                                                
+                                                <div class="col-sm-2 col-xs-3">
+                                                    
+                                                    <div class="item-img-grid">
+                                                        <img alt="" src="<%=basePath%>upload/${item.images[0].imgUrl}" class="img-responsive img-center">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8 col-xs-6">
+                                                    <div class="item-title">
+                                                        <a href="<%=basePath%>goods/goodsId/${item.goods.id}"><h4>&nbsp;&nbsp;<c:out value="${item.goods.name}"></c:out></h4></a>
+                                                    </div>
+                                                    <div class="item-meta">
+                                                        <ul>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 上架时间:<c:out value="${item.goods.startTime}"></c:out></li>
+                                                        <li class="item-date"><i class="fa fa-clock-o"></i> 下架时间:<c:out value="${item.goods.endTime}"></c:out></li>
+                                                        <li class="item-location"><i class="fa fa-map-marker"></i> 福建农林大学</li>
+                                                        <li class="item-price "><i class="fa fa-money"></i> 原价<c:out value="${item.goods.realPrice}"></c:out></li>
+                                                        
+                                                    </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 col-xs-3">
+                                                    <div class="item-price">
+                                                        <h3>$<c:out value="${item.goods.price}"></c:out></h3>
+                                                        <span>可议价</span>
+                                                    </div>
+                                                    <div class="item-action">
+                                                       <ul>
+                                                        <c:if test="${!empty cur_user}">
+                                                            <li><a href="#" value="加入关注" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-sm" id="btn_cart" onclick="addFocus(${item.goods.id})"><i class="fa fa-heart"></i></a></li>
+                                                            </c:if>
+                                                            <li><a href="<%=basePath%>goods/goodsId/${item.goods.id}" data-toggle="tooltip" data-placement="top" title="Show Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                     </c:forEach>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <ul class="pagination">
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li class="active"><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </section>
+           
         </div>
-    </div>
-</div>
-</body>
-</html>
+        <!-- Essentials -->
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/plugins/counter/jquery.countTo.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+    </body>
+</html> 
+

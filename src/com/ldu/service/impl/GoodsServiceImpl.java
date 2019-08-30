@@ -101,14 +101,12 @@ public class GoodsServiceImpl implements GoodsService {
 		
 	}
 
-	@Override
 	public int getGoodsNum() {
 		 //获取出商品的数量
 		List<Goods> goods = goodsMapper.getGoodsList();
 	    return goods.size();
 	    }
 
-	@Override
 	public List<Goods> getPageGoods(int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<Goods> list =goodsMapper.getGoodsList();
@@ -122,17 +120,14 @@ public class GoodsServiceImpl implements GoodsService {
 //		return list;
 //	}
 	
-	@Override
 	public CommentExtend selectCommentsByGoodsId(Integer id) {
 		return goodsMapper.selectCommentsByGoodsId(id);
 	}
 
-	@Override
 	public void addComments(Comments comments) {
 		goodsMapper.addComments(comments);
 	}
 
-	@Override
 	public PageInfo<Goods> getPageGoodsByGoods(int pageNum, int pageSize, Goods searchGoods) {
 				int start = (pageNum-1)*pageSize;
 				//pageHelper的使用方法
@@ -144,7 +139,7 @@ public class GoodsServiceImpl implements GoodsService {
 				for (Goods good : List) {
 					System.out.print(good.getId()+"   ");
 				}
-				PageInfo<Goods> pageResult = new PageInfo<>(List);
+				PageInfo<Goods> pageResult = new PageInfo<Goods>(List);
 				return pageResult;
 	}
 }

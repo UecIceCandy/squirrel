@@ -15,13 +15,13 @@ public class NoticeServiceImpl implements NoticeService{
 	 @Resource
 	 private NoticeMapper noticeMapper;
 
-	@Override
+	
 	public List<Notice> getNoticeList() {
 		
 		return noticeMapper.getNoticeList();
 	}
 
-	@Override
+	
 	public void insertSelective(Notice notice) {
 		noticeMapper.insertSelective(notice);
 		

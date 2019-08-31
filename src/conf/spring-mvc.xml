@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
@@ -65,3 +64,21 @@
             <value>5242880</value>
         </property>
     </bean>
+    
+    <!-- 配置自定义的拦截器 -->
+	<mvc:interceptors>
+		
+		 <!-- <mvc:interceptor>
+		 <bean class="com.interceptor.CustomInterceptor" />
+			<mvc:mapping path="/**" />   /**配置，表示拦截所有路径
+			<mvc:exclude-mapping path="" />  配置不需要拦截的路径
+			<bean class="com.interceptor.Interceptor1" />
+		</mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />  <!--hello表示拦截所有以“/hello”结尾的路径 -->
+			<bean class="com.ldu.interceptor.AdminInterceptor" />
+		</mvc:interceptor>  
+
+	</mvc:interceptors>
+    
+</beans>

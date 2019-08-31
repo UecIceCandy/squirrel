@@ -52,32 +52,46 @@ public class AdminController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String login(HttpSession session) {
 		// 清除session
-		//session.invalidate();
+//		session.invalidate();
+		return "/admin/login";
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		// 清除session
+		session.invalidate();
 		return "/admin/login";
 	}
 
 	@RequestMapping(value = "/index")
-	public String index(HttpServletRequest request, Admin admins) {
+	@ResponseBody
+	public int index(HttpServletRequest request, Admin admins) {
+		
 		
 		Admin myadmin = adminService.findAdmin(admins.getPhone(), admins.getPassword());
 		if (myadmin != null) {
 			request.getSession().setAttribute("admin", myadmin);
-			return "redirect:/admin/home";
+//			return "redirect:/admin/home";
+			return 1;
 		}
-		return "redirect:/admin";
+//		model.addAttribute("loginmsg","账号或密码错误");	
+//		return "/admin/login";
+		return 0;
 
 	}
 
 	@RequestMapping(value = "/home")
 	public String home(HttpServletRequest request) {
-		Admin admin = (Admin) request.getSession().getAttribute("admin");
-		if (admin != null) {
-			Integer id = admin.getId();
-			Admin myadmin = adminService.findAdminById(id);
-			request.getSession().setAttribute("admin", myadmin);
-			return "/admin/home";
-		}
-		return "redirect:/admin";
+//		Admin admin = (Admin) request.getSession().getAttribute("admin");
+//		if (admin != null) {
+//			Integer id = admin.getId();
+//			Admin myadmin = adminService.findAdminById(id);
+//			request.getSession().setAttribute("admin", myadmin);
+//			return "/admin/home";
+//		}
+//		return "redirect:/admin";
+		
+		return "/admin/home";
 
 	}
 	
